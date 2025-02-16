@@ -7,9 +7,10 @@ protocol RecipePresentationDelegate: AnyObject {
 class RecipeCategoryTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var TitleLabel: UILabel!
     weak var presentationDelegate: RecipePresentationDelegate?
     
-    private var recipes: [Recipe] = []
+      private var recipes: [Recipe] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -18,6 +19,7 @@ class RecipeCategoryTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white
+        TitleLabel.textColor = UIColor(hex: "#020058")
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                    layout.scrollDirection = .horizontal
@@ -26,9 +28,11 @@ class RecipeCategoryTableViewCell: UITableViewCell {
                }
     }
     
-    func configure(with recipes: [Recipe]) {
-        self.recipes = recipes
+    func configure(with category: RecipeCategory) {
+        self.TitleLabel.text = category.name.capitalized
+        self.recipes = category.recipes
         collectionView.reloadData()
+
     }
 }
 

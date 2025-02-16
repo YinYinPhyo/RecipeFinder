@@ -37,12 +37,20 @@ struct MissedIngredient: Codable {
 }
 
 // Define the model for Recipe
+/// <#Description#>
 struct Recipe: Codable {
     let id: Int
     let title: String
     let image: String
     let imageType: String
-    let usedIngredientCount: Int
-    let missedIngredientCount: Int
-    let missedIngredients: [MissedIngredient]
+    let usedIngredientCount: Int?
+    let missedIngredientCount: Int?
+    let missedIngredients: [MissedIngredient]?
 }
+
+extension Recipe: Equatable {
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
